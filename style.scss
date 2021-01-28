@@ -1,0 +1,318 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Modak&display=swap");
+// background-color: #FF3CAC;
+$title-gradient: linear-gradient(225deg, #ff3cac 0%, #784ba0 50%, #2b86c5 100%);
+
+$kick: #2b86c5;
+$snare: #7d2bc5;
+$hihat: #ff3cac;
+$bgc: #121118;
+$orange: #f58f29;
+$size: 2rem;
+
+$kickgr: linear-gradient(45deg, #65aee2 0%, $kick 100%);
+$snaregr: linear-gradient(45deg, #a859ee 0%, $snare 100%);
+$hihatgr: linear-gradient(45deg, #ff7bc6 0%, $hihat 100%);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  // box-shadow: inset 0px 0px 5rem rgba($kick, 0.5);
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: $bgc;
+  color: whitesmoke;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0rem;
+}
+
+h1 {
+  font-family: "Modak";
+  font-weight: 100;
+  letter-spacing: 2px;
+  font-size: 4rem;
+  background: -webkit-linear-gradient(45deg, $kick 0%, $snare 50%, $hihat 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  height: 5rem;
+}
+
+h2 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+i,
+svg {
+  pointer-events: none;
+}
+
+.sequencer {
+  display: flex;
+  min-height: 70vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.kick-pad,
+.snare-pad,
+.hihat-pad {
+  width: 4rem;
+  height: 4rem;
+  margin: 1rem 0.5rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+$colors: (
+  kick-pad: rgba($kick, 0.3),
+  snare-pad: rgba($snare, 0.3),
+  hihat-pad: rgba($hihat, 0.3),
+);
+
+@each $name, $color in $colors {
+  .#{$name} {
+    background: $color;
+  }
+}
+
+.kick-pad.active {
+  background-image: $kickgr;
+}
+.snare-pad.active {
+  background-image: $snaregr;
+}
+.hihat-pad.active {
+  background-image: $hihatgr;
+}
+
+.active {
+  // transition: all 250ms ease-out;
+}
+
+.kick-track,
+.snare-track,
+.hihat-track {
+  display: flex;
+  align-items: center;
+  width: 80%;
+  justify-content: space-between;
+}
+
+.snare-track,
+.hihat-track {
+  margin-top: 3rem;
+}
+
+.kick,
+.snare,
+.hihat {
+  display: flex;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr;
+  // grid-template-rows: minmax(3rem, 1fr);
+  width: 35%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pad {
+  transition: all 250ms ease-out;
+}
+
+.mute {
+  border: none;
+  background: none;
+  font-size: 3rem;
+  color: lighten($bgc, 15%);
+  width: 3rem;
+  cursor: pointer;
+  &:focus {
+    appearance: none;
+  }
+}
+.mute.active {
+  color: crimson;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 7.5rem;
+  gap: 2.5rem;
+}
+
+.play {
+  // transform: translateX(-50%);
+  border: none;
+  background: $title-gradient;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  font-size: 2rem;
+  color: $bgc;
+  cursor: pointer;
+  margin: 3rem 0rem;
+  transition: all 100ms ease-out;
+  &:hover {
+    font-size: 2.25rem;
+  }
+  &:focus {
+    appearance: none;
+  }
+}
+
+.fa-play {
+  transform: translateX(5%);
+}
+
+#kick-select,
+#snare-select,
+#hihat-select {
+  background: $bgc;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  padding: 10% 5%;
+  border: 1px solid white;
+  border-radius: 5px;
+  color: white;
+  -webkit-appearance: none;
+  box-shadow: 0.5rem 0.5rem 1rem black;
+  width: 100%;
+}
+
+.select-wrapper {
+  position: relative;
+  &::after {
+    content: "▼";
+    position: absolute;
+    font-size: 0.7rem;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+.tempo {
+  background: $hihatgr;
+  color: darken($hihat, 50%);
+  cursor: pointer;
+  border: 0;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  position: relative;
+  transition: all 100ms ease;
+  &::after {
+    content: "Increase or Decrease Tempo/BPM";
+    position: absolute;
+    background: $bgc;
+    box-shadow: 0rem 0.5rem 1rem black;
+    border-radius: 10px;
+    border: $snare;
+    font-size: 0.8rem;
+    width: 8rem;
+    padding: 5px 2px;
+    color: white;
+    bottom: 120%;
+    left: -85%;
+    opacity: 0;
+    transition: opacity 150ms ease;
+  }
+  &:hover::after {
+    opacity: 1;
+  }
+  &:hover {
+    font-size: 1.45rem;
+  }
+  &:focus {
+    appearance: none;
+  }
+}
+
+$borders: (
+  kick-select: $kick,
+  snare-select: $snare,
+  hihat-select: $hihat,
+);
+
+@each $name, $border in $borders {
+  ##{$name} {
+    border: 1px solid $border;
+  }
+}
+
+@keyframes playTrack {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes lights0 {
+  0% {
+    box-shadow: none;
+  }
+  50% {
+    box-shadow: inset 0px 0px 5rem rgba($kick, 0.2);
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+@keyframes lights2 {
+  0% {
+    box-shadow: none;
+  }
+  50% {
+    box-shadow: inset 0px 0px 5rem rgba($snare, 0.2);
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+@keyframes lights4 {
+  0% {
+    box-shadow: none;
+  }
+  50% {
+    box-shadow: inset 0px 0px 5rem rgba($hihat, 0.2);
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+@keyframes lights6 {
+  0% {
+    box-shadow: none;
+  }
+  50% {
+    box-shadow: inset 0px 0px 5rem rgba($orange, 0.2);
+  }
+  100% {
+    box-shadow: none;
+  }
+}
